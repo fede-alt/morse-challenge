@@ -2,7 +2,7 @@
 # Compiled class file
 *.class
 target
-
+*.directory
 # Log file
 *.log
 
