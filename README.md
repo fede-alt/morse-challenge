@@ -81,9 +81,14 @@ La idea es granular el problema:
   
   
 #### Configurables: 🔧
+
   _Parametros configurables de la API en su application.yml_
+  
   **interferencia:** llamo interferencia o "ruido" a algo que no se le encuentra traducción, posibilitando ignorarlo y traducir el resto (coerce) o reportarlo (Exception), se configura con un booleano equivalente a ignorarla.
+  
   **diccionario:** el diccionario está declarado en el YML posibilitando insertar más símbolos.
+  
+  
   
 #### Manejo de errores:
   En el caso de que no se ignore la transferencia se lanzará una MorseException con la información suficiente para ubicar el problema.
