@@ -1,8 +1,8 @@
 package com.meli.morse.utils;
 
 
-import com.meli.morse.model.binary.Signal;
-import com.meli.morse.model.binary.Transmission;
+import com.meli.morse.model.Signal;
+import com.meli.morse.model.Transmission;
 import sun.security.util.BitArray;
 
 import java.io.IOException;
@@ -36,20 +36,20 @@ public class MorseBitReader {
     public String decodeBits2Morse(BitArray bits){
         Transmission transmission = new Transmission();
         if (bits.length()>0) {
-            Signal signal = SignalFactory.getInstance().create(bits.get(0));
+            Signal signal = SignalFactory.getInstance().createFrom(bits.get(0));
             for (int i = 1 ; i<bits.length() ; i++){
                  boolean nextBit = bits.get(i);
-                 if ( signal.continues(nextBit) ) {
+                 if ( signal.shouldContinue(nextBit) ) {
                      signal.addDuration();
                  }else{
                      transmission.add(signal);
-                     signal = SignalFactory.getInstance().create(nextBit);
+                     signal = SignalFactory.getInstance().createFrom(nextBit);
                  }
             }
             transmission.add(signal);
             transmission.refreshContext();
         }
-        return transmission.toString();
+        return transmission.toString().trim();
     }
 
 

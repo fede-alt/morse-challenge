@@ -1,33 +1,30 @@
 package com.meli.morse.config;
 
 import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+
 @Configuration
-@EnableAutoConfiguration
+@EnableConfigurationProperties
 @ComponentScan(basePackages = {"com.meli.morse"})
 @ConfigurationProperties(prefix = "morse")
 public class MorseConfiguration {
 
-    private BiMap<Character, String> dictionary;
+    private HashBiMap<String,String> dictionary = HashBiMap.create();
 
-    public BiMap<Character, String> getMorseDictionary() {
+    public HashBiMap<String, String> getDictionary() {
         return dictionary;
     }
 
-    public MorseConfiguration setMorseDictionary(BiMap<Character, String> dictionary) {
+    public MorseConfiguration setDictionary(HashBiMap<String, String> dictionary) {
         this.dictionary = dictionary;
         return this;
     }
 
-    public String char2morse(char c) {
-        return dictionary.get(c);
-    }
-
-    public Character morse2char(String morseString) {
-        return dictionary.inverse().get(morseString);
-    }
 }

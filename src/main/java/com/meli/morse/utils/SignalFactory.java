@@ -1,12 +1,11 @@
 package com.meli.morse.utils;
 
-import com.meli.morse.model.binary.Pause;
-import com.meli.morse.model.binary.Pulse;
-import com.meli.morse.model.binary.Signal;
+import com.meli.morse.model.Pause;
+import com.meli.morse.model.Pulse;
+import com.meli.morse.model.Signal;
 
 public class SignalFactory {
 
-    private final static char ONE = '1';
     private static SignalFactory instance = null;
 
     public SignalFactory(){
@@ -19,11 +18,7 @@ public class SignalFactory {
         return instance;
     }
 
-    public Signal create(String signal) {
-        return (signal.charAt(0) == ONE) ? new Pulse(signal.length()) : new Pause(signal.length());
-    }
-
-    public Signal create(boolean isPulse) {
+    public Signal createFrom(boolean isPulse) {
         return (isPulse) ? new Pulse() : new Pause();
     }
 }

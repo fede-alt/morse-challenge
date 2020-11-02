@@ -1,4 +1,4 @@
-package com.meli.morse.model.binary;
+package com.meli.morse.model;
 
 /**
  * Una {@code Signal} representa un segmento de bits
@@ -27,6 +27,12 @@ public abstract class Signal {
         this.duration = 1;
     }
 
+    /**
+     * Obtiene la duracion de la sennal
+     *
+     * @return  long signal's duration value
+     *
+     */
     public long getDuration() {
         return this.duration;
     }
@@ -35,12 +41,23 @@ public abstract class Signal {
         this.duration++;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 
-    public boolean continues(boolean nextBit){
-        return (this.getBit() == nextBit);
+    /**
+     * Dado un bit siguiente este metodo determina si la sennal debe continuar.
+     * <p>La sennal continua si el proximo bit es del mismo tipo de los que forman la sennal
+     *
+     * @param nextBit (proximo bit)
+     *
+     * @return  booleano de continuacion
+     *
+     * @see  Pulse
+     * @see  Pause
+     */
+    public boolean shouldContinue(boolean nextBit){
+        return (this.getBitType() == nextBit);
     }
 
 
@@ -52,7 +69,7 @@ public abstract class Signal {
      * @see  Pulse
      * @see  Pause
      */
-    public abstract String decode(TransmissionContext context);
+    public abstract String interpret(TransmissionContext context);
 
 
     /**
@@ -62,7 +79,7 @@ public abstract class Signal {
      *          false en caso contrario.
      *
      */
-    public abstract boolean getBit();
+    public abstract boolean getBitType();
 
 
 }

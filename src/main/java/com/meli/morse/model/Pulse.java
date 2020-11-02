@@ -1,18 +1,19 @@
-package com.meli.morse.model.binary;
+package com.meli.morse.model;
 
 /**
  * Un {@code Pulse} representa un segmento de bits en alto
  * pertenecientes a la transmision (un pulso).
  * <p>Este segmento solo esta formado por UNOs
- * @see  com.meli.morse.model.binary.Pause
- * @see  com.meli.morse.model.binary.Signal
- * @see  com.meli.morse.model.binary.Transmission
+ * @see  Pause
+ * @see  Signal
+ * @see  Transmission
  *
  */
 public class Pulse extends Signal {
 
     public static final String DOT = ".";
     public static final String DASH = "-";
+    public static final int DOT_TOLERANCE = 3;
 
     public Pulse(int duration) {
         super(duration);
@@ -30,11 +31,15 @@ public class Pulse extends Signal {
      *
      */
     @Override
-    public String decode(TransmissionContext context) {
-        return context.interpret(this);
+    public String interpret(TransmissionContext context) {
+        if (this.getDuration() >= context.getMinPulseDuration()*DOT_TOLERANCE){
+            return DASH;
+        }else{
+            return DOT;
+        }
     }
 
-    public boolean getBit() {
+    public boolean getBitType() {
         return true;
     }
 
