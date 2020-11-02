@@ -1,9 +1,9 @@
 # MELI morse-challenge
 
 
-## Enunciado 📝
+## Rsumen del Enunciado 📝
 
-Se pide implementar en cualquier JAVA :
+Se pide implementar en JAVA :
 
 **1.** Una función decodeBits2Morse que dada una secuencia de bits, retorne un string con el resultado en MORSE.
 
