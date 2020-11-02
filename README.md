@@ -86,7 +86,7 @@ La idea es granular el problema:
 ## Construido con 🛠️
 
 _Herramientas utilizadas:_
-* [JAVA 1.8](https://www.java.com/) - El framework web usado
-* [Spring](https://spring.io/) - El framework web usado
+* [JAVA 1.8](https://www.java.com/) - Lenguaje de programacion
+* [Spring](https://spring.io/) - El framework web
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 * [Swagger](https://swagger.io/) - Documentacion
