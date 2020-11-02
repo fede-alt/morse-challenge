@@ -18,6 +18,8 @@ visceversa.
 URL para consulta
 
 
+-------------------------------------------------------------------------------
+
 
 
 ## Comenzando el modelado 🚀
@@ -81,6 +83,10 @@ La idea es granular el problema:
   
 ##### Manejo de errores:
   En el caso de que no se ignore la transferencia se lanzara una MorseException con la informacion suficiente para ubicar el problema.
+  
+  
+  
+-------------------------------------------------------------------------------
   
 
 ## Construido con 🛠️
