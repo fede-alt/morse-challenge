@@ -47,6 +47,9 @@ Por ejemplo, siguiendo el standard de timing de las [reglas basicas](https://en.
 Tenemos que un punto tiene una unidad de duracion, mientras que el guion tiene tres. La relacion temporal entonces es 1 guion = 3 puntos, de aquí la **tolerancia** para identificar un guion será valor de 3 unidades minimas, o superior.
 
 
+El modelo es apto para uso recursivo, es decir que puede utilizarse en una aplicacion que contenga un listener del input de un usuario, por ejemplo un KeyListener, siempre y cuando ese input sea llevado a una lista de Boolean.
+
+
 
 #### Condiciones 📑
 
