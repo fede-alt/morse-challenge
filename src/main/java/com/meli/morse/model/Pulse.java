@@ -13,7 +13,6 @@ public class Pulse extends Signal {
 
     public static final String DOT = ".";
     public static final String DASH = "-";
-    public static final int DOT_TOLERANCE = 3;
 
     public Pulse(int duration) {
         super(duration);
@@ -32,7 +31,7 @@ public class Pulse extends Signal {
      */
     @Override
     public String interpret(TransmissionContext context) {
-        if (this.getDuration() >= context.getMinPulseDuration()*DOT_TOLERANCE){
+        if (this.getDuration() >= context.getMinPulseDuration() * context.getTolerance().getDash()){
             return DASH;
         }else{
             return DOT;

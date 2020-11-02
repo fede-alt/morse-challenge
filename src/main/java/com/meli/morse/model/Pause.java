@@ -15,11 +15,8 @@ public class Pause extends Signal {
 
     public static final String PAUSE = "";
     public static final String CHAR_SPACE = " ";
-    public static final String WORD_SPACE = "      ";
+    public static final String WORD_SPACE = "   ";
     public static final String FULL_STOP = "\n";
-    public static final int CHAR_SPACE_TOLERANCE = 3;
-    public static final int WORD_SPACE_TOLERANCE = 7;
-    public static final int FULL_STOP_TOLERANCE = 10;
 
     public Pause(int duration) {
         super(duration);
@@ -36,11 +33,11 @@ public class Pause extends Signal {
      */
     public String interpret(TransmissionContext context) {
         long minPauseDuration = context.getMinPauseDuration();
-        if (this.getDuration() >= minPauseDuration*FULL_STOP_TOLERANCE){
+        if ( this.getDuration() >= minPauseDuration * context.getTolerance().getFullStop() ){
             return FULL_STOP;
-        }else if (this.getDuration() >= minPauseDuration*WORD_SPACE_TOLERANCE){
+        }else if ( this.getDuration() >= minPauseDuration * context.getTolerance().getWordSpace() ){
             return WORD_SPACE;
-        }else if (this.getDuration() >= minPauseDuration*CHAR_SPACE_TOLERANCE){
+        }else if ( this.getDuration() >= minPauseDuration * context.getTolerance().getCharSpace() ){
             return CHAR_SPACE;
         }else{
             return PAUSE;

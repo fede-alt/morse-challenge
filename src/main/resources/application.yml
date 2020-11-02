@@ -3,9 +3,22 @@ server:
   servlet:
     context-path: /translate
 
-decoder:
+
+#IGNORAR INTERFERENCIA IMPLICA NO REPORTARLA CON UNA EXCEPTION E INTENTAR TRADUCIR DE TODAS FORMAS "coerce"
+bit-reader:
+  ignoreInterference: false
 
 
+#TOLERANCIA : DADO UNA SENAL MINIMA, LA TOLERANCIA INDICA EL MULTIPLICADOR QUE DEFINE EL CONTEXTO
+# Ej: (punto = 1 & tolerancia = 3)   =>   dash = 3 o mas
+tolerance:
+  dash: 3
+  charSpace: 3
+  wordSpace: 7
+  fullStop: 10
+
+
+#CONTRATO DE DICCIONARIO: Las claves deben ser un caracter, y unicas.
 morse:
   dictionary:
     A: .-

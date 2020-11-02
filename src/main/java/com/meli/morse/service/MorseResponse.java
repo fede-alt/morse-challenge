@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class MorseResponse implements Serializable {
 
     private String response;
-    private int statusCode;
+    private int code;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String error;
 
@@ -20,12 +20,12 @@ public class MorseResponse implements Serializable {
         return this;
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    public int getCode() {
+        return code;
     }
 
-    public MorseResponse setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public MorseResponse setCode(int code) {
+        this.code = code;
         return this;
     }
 

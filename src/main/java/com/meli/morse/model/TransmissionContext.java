@@ -1,5 +1,7 @@
 package com.meli.morse.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * {@code TransmissionContext} define el contexto de la transmision.
  *
@@ -13,6 +15,9 @@ public class TransmissionContext {
 
     private long minPulseDuration;
     private long minPauseDuration;
+
+    @Autowired
+    private MorseTolerance tolerance;
 
     public TransmissionContext(){
     }
@@ -32,6 +37,15 @@ public class TransmissionContext {
 
     public TransmissionContext setMinPauseDuration(long minPauseDuration) {
         this.minPauseDuration = minPauseDuration;
+        return this;
+    }
+
+    public MorseTolerance getTolerance() {
+        return tolerance;
+    }
+
+    public TransmissionContext setTolerance(MorseTolerance tolerance) {
+        this.tolerance = tolerance;
         return this;
     }
 }
