@@ -41,10 +41,10 @@ Resumiendo tenemos los siguientes conjuntos:
      {bit} ϵ {Señal} ϵ {Transmision}
 ```
 Por enunciado sé que las señales de la transmisión son consistentes, en otras palabras, esto quiere decir que puntos y guiones son distinguibles, asi como también lo son las pausas, los espacios entre caracter y los espacios entre palabras.
-Siguiendo las [reglas basicas temporales](https://en.wikipedia.org/wiki/Morse_code#Representation,_timing,_and_speeds) del lenguaje morse se puede definir un contexto para distinguir las señales.
+Siguiendo las [reglas básicas temporales](https://en.wikipedia.org/wiki/Morse_code#Representation,_timing,_and_speeds) del lenguaje morse se puede definir un contexto para distinguir las señales.
 
-La lógica elegida fue la siguiente:
-Sea la mínima duracion de una señal, se define la **tolerancia** como la relación obligatoria que debe existir entre cada tipo de interpretación de esa señal y su mínimo.
+La lógica que elegí fue la siguiente:
+Sea la mínima duración de una señal, se define la **tolerancia** como la relación obligatoria que debe existir entre cada tipo de interpretación de esa señal y su mínimo.
 
 Se propone entonces la existencia de un **Contexto** de transmisión que permita dicha distincion, y que de esta manera cada señal pueda ser intepretada a su significado morse. 
 Por ejemplo, siguiendo el standard de timing de las [reglas basicas](https://en.wikipedia.org/wiki/Morse_code#Representation,_timing,_and_speeds):
