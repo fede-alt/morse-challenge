@@ -27,8 +27,11 @@ La idea inicial es decodificar una secuencia de bits a morse. Para enfrentar est
 El bit es un dígito binario, que puede tomar dos valores 0 o 1, por ende puede ser representado con un boolean. Éste forma parte de un número, por lo que el orden tiene importancia y como estos vienen en secuencia puedos llevarlos a una lista para introducir el aspecto de orden.
 
 Generalizando, una secuencia de bits puede interpretarse como una señal, donde puedo decir que existen dos tipos de señales:
+
    -señal en alto (**Pulso**) 
-   o 
+   
+   o
+   
    -señal en baja (**Pausa**)
    
    ![Signal](https://www.electronicspoint.com/themes/user/site/default/asset/img/articles/line-graph-digital-signal.jpg)
