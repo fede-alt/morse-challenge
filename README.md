@@ -75,20 +75,21 @@ En resumen, debe estar presente aquel caracter de menor duracion al que se quier
   
  
 #### Manejo de errores:
-  En el caso de que no se ignore la interferencia se lanzará una MorseException con la información suficiente para ubicar el problema.
+  En el caso de que no se ignore la interferencia se lanzará una MorseException con la información suficiente para ubicar el problema, que en este caso será el index del char y su contenido.
 
 -------------------------------------------------------------------------------
 
 
 ## 2. Traductor morse a texto
-Como este método será ser utilizado por el servicio y además debe tener una inverso me propuse utilizar un diccionario/mapa de preferencia configurable, inyectivo y inversible.
-Usando un mapa bi direccional de google [BiMap](https://guava.dev/releases/19.0/api/docs/com/google/common/collect/BiMap.html) se definen las relaciones brindadas en la tabla.
-La idea es granular el problema:
+Como este método será ser utilizado por el servicio y además debe tener una inverso, me propuse utilizar dos diccionarios que representan una Look Up Table (LUT) respectivamente para cada proceso, siempre utilizando de base un diccionario de entrada, que será customizable siguiendo el contrato de (char->morseTerm)
+La idea es granular el problema una vez parseado el texto:
 
   Para cada caracter de texto, se busca una traduccion a morse.
   
   Para cada termino morse se busca su traduccion a texto.
   
+  #### Manejo de errores:
+  En el caso de que no poder traducir un termino morse o un caracter "humano" se lanzará una MorseException con la información suficiente para ubicar el problema, que en este caso será el index inicial del termino y su contenido.  
   
   
 #### Configurables: 🔧
@@ -97,9 +98,8 @@ La idea es granular el problema:
   
   **diccionario:** el diccionario está declarado en el YML posibilitando insertar más símbolos.
   
+ Se levanta el diccionario
   
-#### Manejo de errores:
-  En el caso de que no poder traducir un termino morse o un caracter "humano" se lanzará una MorseException con la información suficiente para ubicar el problema.
   
   
   
@@ -112,3 +112,8 @@ La idea es granular el problema:
 * [SpringFramework](https://spring.io/) - Framework
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 * [Swagger](https://swagger.io/) - Documentación de la API
+
+
+## HOW TOs 
+
+asd
