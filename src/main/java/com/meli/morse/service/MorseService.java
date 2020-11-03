@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public interface MorseService {
 
 
-    @RequestMapping(value = "/2text", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/morse2text", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ApiOperation("Translates well formed morse string to text")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Succesfull translation"),
@@ -24,7 +24,7 @@ public interface MorseService {
     ResponseEntity<MorseResponse> morse2human(@RequestBody MorseRequest body) throws Exception;
 
 
-    @RequestMapping(value = "/2morse", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/text2morse", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ApiOperation("Translates text to morse")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Succesfull translation"),

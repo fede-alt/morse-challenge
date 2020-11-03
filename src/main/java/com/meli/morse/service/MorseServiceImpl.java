@@ -21,7 +21,8 @@ public class MorseServiceImpl implements MorseService {
     @Override
     public ResponseEntity<MorseResponse> morse2human(MorseRequest body) throws Exception {
         try{
-            String translation = translator.translateMorse2Human(body.getText());
+            boolean coercion = body.getCoerce();
+            String translation = translator.translateMorse2Human(body.getText(), coercion);
             return translationOk(translation);
         }catch (MorseException e){
             return handleMorseException(e);
@@ -31,7 +32,7 @@ public class MorseServiceImpl implements MorseService {
     @Override
     public ResponseEntity<MorseResponse> human2morse(MorseRequest body) throws Exception {
         try{
-            String translation = translator.translateHuman2Morse(body.getText());
+            String translation = translator.translateHuman2Morse(body.getText(), body.getCoerce());
             return translationOk(translation);
         }catch (MorseException e){
             return handleMorseException(e);
@@ -41,14 +42,12 @@ public class MorseServiceImpl implements MorseService {
     @Override
     public ResponseEntity<MorseResponse> binary2morse(MorseRequest body) throws Exception {
         try{
-            String translation = binaryDecoder.decodeBits2Morse(body.getText());
+            String translation = binaryDecoder.decodeBits2Morse(body.getText(),body.getCoerce());
             return translationOk(translation);
         }catch (MorseException e){
             return handleMorseException(e);
         }
     }
-
-
 
     private ResponseEntity<MorseResponse> handleMorseException(MorseException e){
         return ResponseEntity.badRequest()

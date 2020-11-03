@@ -18,33 +18,37 @@ public class MorseBitReaderTestCase {
     private MorseBitReader bitReader;
 
     @Test
-    public void interferenceTest() {
-
+    public void reportInterferenceTest() {
         char interferencia = 'Z';
         String target = "01"+interferencia+"01";
         try{
-            bitReader.setIgnoreInterference(false);
-            bitReader.decodeBits2Morse("01"+interferencia+"0");
+            bitReader.decodeBits2Morse("01"+interferencia+"0",false);
             fail("debe lanzar MorseException");
         }catch (MorseException e){
-            assertEquals("Bad character '"+interferencia+"' at position "+target.indexOf(interferencia)+". (Only 1s and 0s are valid)", e.getMessage());
+            assertEquals("Bad character '"+interferencia+"' at position "+target.indexOf(interferencia)+"." +
+                    " (Only 1s and 0s are valid)", e.getMessage());
         }
     }
 
     @Test
-    public void toleranceIntegrationTest() throws MorseException {
-        String decoded = bitReader.decodeBits2Morse("1011111");//guion = 5 puntos
-        assertEquals("..", decoded);
-        decoded = bitReader.decodeBits2Morse("101111111");//guion = 6 puntos
-        assertEquals(".-", decoded);
+    public void ignoreInterferenceTest() throws MorseException {
+        char interferencia = 'Z';
+        assertEquals(".-.",bitReader.decodeBits2Morse("101111"+interferencia+"1101",true));
     }
 
+    @Test
+    public void toleranceIntegrationTest() throws MorseException {
+        String decoded = bitReader.decodeBits2Morse("1011111",false);//guion = 5 puntos
+        assertEquals("..", decoded);
+        decoded = bitReader.decodeBits2Morse("101111111",false);//guion = 6 puntos
+        assertEquals(".-", decoded);
+    }
 
     @Test
     public void holaMeli() throws MorseException {
         String hola = "10101010000001111110111111001111111000000101111110101000000010111111100000000000000000"; //.... --- .-.. .-
         String meli = "1111111001111110000000100000001011111101010000000101000000000000000";//-- . .-.. ..
-        String decoded = bitReader.decodeBits2Morse(hola+meli);
+        String decoded = bitReader.decodeBits2Morse(hola+meli,false);
         assertEquals(".... --- .-.. .-   -- . .-.. ..", decoded);
     }
 

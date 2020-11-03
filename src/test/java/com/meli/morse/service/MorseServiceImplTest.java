@@ -1,7 +1,6 @@
 package com.meli.morse.service;
 
 import com.meli.morse.config.MorseConfiguration;
-import com.meli.morse.utils.MorseBitReader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +32,16 @@ public class MorseServiceImplTest {
 
     @Test
     public void morse2humanDictionary() {
-//        //Testeo el diccionario completo (morse->texto)
-//        try {
-//            for (String target : config.getDictionary().inverse().keySet()){
-//                String translation = invokeMorse2HumanEndpoint(target).getResponse();
-//                if (!translation.isEmpty()) // Exceptuo manejo de espacios
-//                    assertEquals(config.getDictionary().inverse().get(target), translation);
-//            }
-//        } catch (Exception e) {
-//            fail(e.getMessage());
-//        }
+        //Testeo el diccionario completo (morse->texto)
+        try {
+            for (String target : config.getDictionary().values()){
+                String translation = invokeMorse2HumanEndpoint(target).getResponse();
+                if (!translation.isEmpty()) // Exceptuo manejo de espacios
+                    assertTrue(config.getDictionary().containsKey(translation));
+            }
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -85,7 +84,6 @@ public class MorseServiceImplTest {
             assertEquals("..-",decoded);
     }
 
-
     @Test
     public void superTranslationIntegrationTest() throws Exception {
         //bin2morse
@@ -108,12 +106,6 @@ public class MorseServiceImplTest {
         String morseAgain = response.getResponse();
         assertEquals(expectedMorse, morseAgain);
 
-
     }
-
-
-
-
-
 
 }

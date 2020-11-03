@@ -1,5 +1,6 @@
 package com.meli.morse.model;
 
+import com.meli.morse.utils.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -67,5 +68,19 @@ public class Transmission {
     public void clear() {
         this.signalList.clear();
         this.refreshContext();
+    }
+
+    /**
+     * Indica si la transmision debe terminar.
+     *
+     * Una transmision termina luego de una pausa larga o un full stop.
+     *
+     * @return  boolean mensaje finalizado
+     */
+    public boolean ended(){
+//        Translator translator = new Translator();
+//        translator.
+//                .toString();
+//        return true;
     }
 }

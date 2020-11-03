@@ -1,6 +1,5 @@
 package com.meli.morse.utils;
 
-import com.google.common.collect.BiMap;
 import com.meli.morse.service.MorseException;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ public class Translator {
     private Map<String, String> morseLUT;
     private static final String REGEX_SPACING_PATTERN = "(?=(?!^) )(?<! )|(?! )(?<= )";
 
-    public String translateMorse2Human(String morse) throws MorseException {
+    public String translateMorse2Human(String morse, boolean coercion) throws MorseException {
         StringBuilder translation = new StringBuilder();
         String[] terms = morse.split(REGEX_SPACING_PATTERN);
         long pos = 0;
@@ -23,6 +22,7 @@ public class Translator {
             String translatedTerm = translate(
                     term,
                     morseLUT,
+                    coercion,
                     "Invalid morse term '"+term+"' at position "+pos
             );
             pos = pos + term.length();
@@ -31,22 +31,26 @@ public class Translator {
         return translation.toString().trim();
     }
 
-    private String translate(String target, Map<String, String> dictionary, String error) throws MorseException {
+    private String translate(String target, Map<String, String> dictionary, boolean coerce ,String error) throws MorseException {
         String translation = dictionary.get(target);
         if (translation != null) {
             return translation;
         }else{
-            throw new MorseException(error);
+            if (coerce)
+                return "";
+            else
+                throw new MorseException(error);
         }
     }
 
-    public String translateHuman2Morse(String text) throws MorseException {
+    public String translateHuman2Morse(String text, boolean coercion) throws MorseException {
         StringBuilder translation = new StringBuilder();
         for (int i = 0 ; i < text.length() ; i++){
             translation.append(
                     translate(
                             String.valueOf(text.charAt(i)).toUpperCase(),
                             textLUT,
+                            coercion,
                             "Bad character '"+text.charAt(i)+"' at position "+i)+" ");
         }
         return translation.toString().trim();

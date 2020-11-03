@@ -5,13 +5,11 @@ import com.meli.morse.model.Signal;
 import com.meli.morse.model.Transmission;
 import com.meli.morse.service.MorseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-@ConfigurationProperties(prefix = "decoder")
 public class MorseBitReader {
 
     private static final char ONE = '1';
@@ -19,13 +17,6 @@ public class MorseBitReader {
 
     @Autowired
     private MorseTolerance tolerance;
-
-    private boolean ignoreInterference;
-
-    public MorseBitReader setIgnoreInterference(boolean ignoreInterference) {
-        this.ignoreInterference = ignoreInterference;
-        return this;
-    }
 
     /**
      * Decodifica un BitArray a codigo morse.
@@ -80,15 +71,14 @@ public class MorseBitReader {
      * @return  String morse decodificado.
      *
      */
-    public String decodeBits2Morse(char[] charBits) throws MorseException {
+    public String decodeBits2Morse(char[] charBits, boolean coerce) throws MorseException {
         ArrayList<Boolean> bits = new ArrayList<>();
         for (int i = 0 ; i < charBits.length ; i++){
             char currentChar = charBits[i];
             if ( isValid(currentChar) ){
                 bits.add( currentChar == ONE );
             }else{
-                //handle interference
-                if (!ignoreInterference)
+                if (!coerce)
                     throw new MorseException("Bad character '"+currentChar+"' at position "+i+"." +
                             " (Only 1s and 0s are valid)");
             }
@@ -110,8 +100,8 @@ public class MorseBitReader {
      * @return  String morse decodificado.
      *
      */
-    public String decodeBits2Morse(String stringBits) throws MorseException {
-        return decodeBits2Morse(stringBits.toCharArray());
+    public String decodeBits2Morse(String stringBits, boolean coerce) throws MorseException {
+        return decodeBits2Morse(stringBits.toCharArray(), coerce);
     }
 
 
