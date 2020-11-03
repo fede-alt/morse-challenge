@@ -102,6 +102,5 @@ La idea es granular el problema:
 
 * [JAVA 1.8](https://www.java.com/) - Lenguaje de programación
 * [SpringFramework](https://spring.io/) - Framework
-* [SpringBoot](https://spring.io/) - Framework
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 * [Swagger](https://swagger.io/) - Documentación de la API
