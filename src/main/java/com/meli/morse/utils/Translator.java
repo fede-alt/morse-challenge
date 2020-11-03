@@ -3,20 +3,26 @@ package com.meli.morse.utils;
 import com.google.common.collect.BiMap;
 import com.meli.morse.service.MorseException;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class Translator {
 
-    private BiMap<String, String> dictionary;
-    private static final String REGEX_MORSE_PATTERN = "(?=(?!^) )(?<! )|(?! )(?<= )";
+    private HashMap<String, String> dictionary;
+    private HashMap<String, String> textLUT;
+    private Map<String, String> morseLUT;
+    private static final String REGEX_SPACING_PATTERN = "(?=(?!^) )(?<! )|(?! )(?<= )";
 
     public String translateMorse2Human(String morse) throws MorseException {
         StringBuilder translation = new StringBuilder();
-        String[] terms = morse.split(REGEX_MORSE_PATTERN);
+        String[] terms = morse.split(REGEX_SPACING_PATTERN);
         long pos = 0;
         for (int i = 0 ; i < terms.length ; i++) {
             String term = terms[i];
             String translatedTerm = translate(
                     term,
-                    this.dictionary.inverse(),
+                    morseLUT,
                     "Invalid morse term '"+term+"' at position "+pos
             );
             pos = pos + term.length();
@@ -25,7 +31,7 @@ public class Translator {
         return translation.toString().trim();
     }
 
-    private String translate(String target, BiMap<String, String> dictionary, String error) throws MorseException {
+    private String translate(String target, Map<String, String> dictionary, String error) throws MorseException {
         String translation = dictionary.get(target);
         if (translation != null) {
             return translation;
@@ -40,22 +46,40 @@ public class Translator {
             translation.append(
                     translate(
                             String.valueOf(text.charAt(i)).toUpperCase(),
-                            this.dictionary,
+                            textLUT,
                             "Bad character '"+text.charAt(i)+"' at position "+i)+" ");
         }
         return translation.toString().trim();
     }
 
-
-    public BiMap<String, String> getDictionary() {
-        return dictionary;
+    public Map<String,String> getMorseLUT(){
+        return this.dictionary.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getValue,Map.Entry::getKey));
     }
 
-    public Translator setDictionary(BiMap<String, String> dictionary) {
+    public Map<String, String> getTextLUT(){
+        return this.dictionary;
+    }
+
+    public Translator setTextLUT(HashMap<String, String> textLUT) {
+        this.textLUT = textLUT;
+        return this;
+    }
+
+    public Translator setMorseLUT(HashMap<String, String> morseLUT) {
+        this.morseLUT = morseLUT;
+        return this;
+    }
+
+    public Translator setDictionary(HashMap<String, String> dictionary) {
         this.dictionary = dictionary;
         //spaces
-        dictionary.put(" ","   ");
-        dictionary.put(""," ");
+        dictionary.put(" "," ");
+        this.textLUT = dictionary;
+        this.morseLUT = this.dictionary.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getValue,Map.Entry::getKey));
+        this.morseLUT.put(" ","");
+        this.morseLUT.put("   "," ");
         return this;
     }
 
