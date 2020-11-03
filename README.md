@@ -53,6 +53,9 @@ Tenemos que un punto tiene una unidad de duración, mientras que el guión tiene
 
 El modelo es apto para uso recursivo, es decir que puede utilizarse en una aplicacion que contenga un listener del input de un usuario, por ejemplo un KeyListener, siempre y cuando ese input sea llevado a una lista de Boolean.
 
+![Diagrama](https://i.imgur.com/g2nhpem.jpeg)
+
+  _Simple diagrama de clases_
 
 
 #### Condiciones 📑
