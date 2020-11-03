@@ -68,6 +68,11 @@ En resumen, deben estar presentes todos los "caracteres" morse. (punto , guión 
 #### Configurables: 🔧
   **tolerancia:** la tolerancia podrá ser configurable. El número de cada tolerancia debe respetar a la tolerancia de nivel inferior. Por ejemplo, la tolerancia de un word-space debe ser mayor a la de un char-space.
   
+  **interferencia:** llamo interferencia o "ruido" a algo que no se le encuentra traducción, posibilitando ignorarlo y traducir el resto (coerce) o reportarlo (Exception), se configura con un booleano equivalente a ignorarla.
+  
+ 
+#### Manejo de errores:
+  En el caso de que no se ignore la interferencia se lanzará una MorseException con la información suficiente para ubicar el problema.
 
 -------------------------------------------------------------------------------
 
@@ -87,14 +92,11 @@ La idea es granular el problema:
 
   _Parametros configurables de la API en su application.yml_
   
-  **interferencia:** llamo interferencia o "ruido" a algo que no se le encuentra traducción, posibilitando ignorarlo y traducir el resto (coerce) o reportarlo (Exception), se configura con un booleano equivalente a ignorarla.
-  
   **diccionario:** el diccionario está declarado en el YML posibilitando insertar más símbolos.
   
   
-  
 #### Manejo de errores:
-  En el caso de que no se ignore la transferencia se lanzará una MorseException con la información suficiente para ubicar el problema.
+  En el caso de que no poder traducir un termino morse o un caracter "humano" se lanzará una MorseException con la información suficiente para ubicar el problema.
   
   
   
