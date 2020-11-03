@@ -14,7 +14,7 @@ tolerance:
 
 
 #CONTRATO DE DICCIONARIO: Las claves deben ser un caracter, y unicas.
-morse:
+translator:
   dictionary:
     A: .-
     B: -...

@@ -1,6 +1,6 @@
 package com.meli.morse.service;
 
-import com.meli.morse.config.MorseConfiguration;
+import com.meli.morse.utils.Translator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class MorseServiceImplTest {
     @Autowired
     private MorseServiceImpl service;
     @Autowired
-    private MorseConfiguration config;
+    private Translator translator;
 
     private MorseResponse invokeHuman2MorseEndpoint(String morse) throws Exception {
         return this.service.human2morse(new MorseRequest().setText(morse)).getBody();
@@ -34,10 +34,10 @@ public class MorseServiceImplTest {
     public void morse2humanDictionary() {
         //Testeo el diccionario completo (morse->texto)
         try {
-            for (String target : config.getDictionary().values()){
-                String translation = invokeMorse2HumanEndpoint(target).getResponse();
+            for (String morse : translator.getMorseLUT().keySet()){
+                String translation = invokeMorse2HumanEndpoint(morse).getResponse();
                 if (!translation.isEmpty()) // Exceptuo manejo de espacios
-                    assertTrue(config.getDictionary().containsKey(translation));
+                    assertEquals(translator.getTextLUT().get(translation),morse);
             }
         } catch (Exception e) {
             fail(e.getMessage());
@@ -48,10 +48,10 @@ public class MorseServiceImplTest {
     public void human2morse() {
         //Testeo el diccionario completo (text->morse)
         try {
-            for (String textChar : config.getDictionary().keySet()){
+            for (String textChar : translator.getTextLUT().keySet()){
                 String translation = invokeHuman2MorseEndpoint(textChar).getResponse();
                 if (!translation.isEmpty()) // Exceptuo manejo de espacios
-                    assertEquals(config.getDictionary().get(textChar), translation);
+                    assertEquals(translator.getMorseLUT().get(translation), textChar);
             }
         } catch (Exception e) {
             fail(e.getMessage());

@@ -29,7 +29,7 @@ public class Pause extends Signal {
     /**
      * Decodifica la pausa a un String morse, segun el contexto.
      *
-     * @return  String PAUSE = ""
+     * @return  String equivalente al espacio entre caracteres o palabras.
      */
     public String interpret(TransmissionContext context) {
         long minPauseDuration = context.getMinPauseDuration();
@@ -44,6 +44,11 @@ public class Pause extends Signal {
         }
     }
 
+    /**
+     * Devuelve el bit que compone la pausa.
+     *
+     * @return  boolean false
+     */
     public boolean getBitType() {
         return false;
     }

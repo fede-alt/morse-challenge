@@ -38,6 +38,11 @@ public class Pulse extends Signal {
         }
     }
 
+    /**
+     * Devuelve el bit que compone el pulso.
+     *
+     * @return  boolean true
+     */
     public boolean getBitType() {
         return true;
     }

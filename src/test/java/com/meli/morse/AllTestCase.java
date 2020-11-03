@@ -1,6 +1,5 @@
 package com.meli.morse;
 
-
 import com.meli.morse.model.SignalTestCase;
 import com.meli.morse.model.TransmissionTestCase;
 import com.meli.morse.service.MorseServiceImplTest;

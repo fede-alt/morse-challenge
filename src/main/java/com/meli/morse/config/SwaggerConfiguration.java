@@ -1,6 +1,8 @@
 package com.meli.morse.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 
 @Configuration
 @EnableSwagger2
+@EnableConfigurationProperties
+@ComponentScan(basePackages = {"com.meli.morse"})
 public class SwaggerConfiguration {
 
     private ApiInfo DEFAULT_API_INFO = new ApiInfo(

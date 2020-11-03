@@ -3,6 +3,10 @@ package com.meli.morse.model;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * Este objeto representa un contenedor para definir el contexto de transmision en base a standards morse.
+ */
 @Component
 @ConfigurationProperties(prefix = "tolerance")
 public class MorseTolerance {

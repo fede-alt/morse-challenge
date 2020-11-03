@@ -25,7 +25,7 @@ public interface MorseService {
 
 
     @RequestMapping(value = "/text2morse", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ApiOperation("Translates text to morse")
+    @ApiOperation(value = "Translates text to morse")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Succesfull translation"),
             @ApiResponse(code = 400, message = "Failed to translate"),
@@ -34,7 +34,7 @@ public interface MorseService {
 
 
     @RequestMapping(value = "/binary2morse", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ApiOperation("Translates binary (0s & 1s) string to morse")
+    @ApiOperation(value = "Translates binary (0s & 1s) string to morse", notes = "IMPORTANT NOTE: This method stops translating after long 0s pause is detected.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Succesfull translation"),
             @ApiResponse(code = 400, message = "Failed to translate"),

@@ -1,6 +1,5 @@
 package com.meli.morse.service;
 
-import com.meli.morse.config.MorseConfiguration;
 import com.meli.morse.utils.MorseBitReader;
 import com.meli.morse.utils.Translator;
 import org.springframework.http.HttpStatus;
@@ -13,9 +12,9 @@ public class MorseServiceImpl implements MorseService {
     private final Translator translator;
     private final MorseBitReader binaryDecoder;
 
-    public MorseServiceImpl(MorseConfiguration config, MorseBitReader bitReader) {
+    public MorseServiceImpl(Translator translator, MorseBitReader bitReader) {
         this.binaryDecoder = bitReader;
-        this.translator = new Translator().setDictionary(config.getDictionary());
+        this.translator = translator;
     }
 
     @Override

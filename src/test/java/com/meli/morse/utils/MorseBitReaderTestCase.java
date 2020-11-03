@@ -52,4 +52,13 @@ public class MorseBitReaderTestCase {
         assertEquals(".... --- .-.. .-   -- . .-.. ..", decoded);
     }
 
+    @Test
+    public void transmissionIntegratedStopTest() throws MorseException {
+        String preStop = "01010111111";
+        String transmission = preStop+"0000000000000000000000000000011111111101010101010";
+        String decoded = bitReader.decodeBits2Morse(transmission, false);
+        String preStopDecoded = bitReader.decodeBits2Morse(preStop, false);
+        assertEquals(preStopDecoded, decoded);
+    }
+
 }

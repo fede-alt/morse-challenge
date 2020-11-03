@@ -40,6 +40,7 @@ public class MorseBitReader {
                     transmission.add(signal);
                     signal = SignalFactory.getInstance().createFrom(nextBit);
                 }
+                if (transmission.stop()) return transmission.toString().trim();
             }
             transmission.add(signal); //add last processed signal
             transmission.refreshContext();
@@ -63,6 +64,9 @@ public class MorseBitReader {
      *
      * @param  charBits
      *         char[] a decodificar.
+     *
+     * @param  coerce
+     *         forzar traduccion (puede llevar a resultado erroneo)
      *
      * @throws  com.meli.morse.service.MorseException
      *          Al no ignorar interferencia, si el array no es puramente binario, es
@@ -93,8 +97,11 @@ public class MorseBitReader {
      * @param  stringBits
      *         String a decodificar.
      *
-     * @throws  java.io.IOException
-     *          Si el string no es puramente binario, es decir si tiene
+     * @param  coerce
+     *         forzar traduccion (puede llevar a resultado erroneo)
+     *
+     * @throws  com.meli.morse.service.MorseException
+     *          Sera lanzada si el string no es puramente binario, es decir si tiene
      *          un char C de modo tal que C no pertenece al conjunto {0,1}
      *
      * @return  String morse decodificado.
