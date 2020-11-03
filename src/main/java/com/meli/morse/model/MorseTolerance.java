@@ -7,10 +7,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "tolerance")
 public class MorseTolerance {
 
-    private long dash = 3;
-    private long charSpace = 3;
-    private long wordSpace = 7;
-    private long fullStop = 10;
+    public static final long DEFAULT_DASH_TOLERANCE = 3;
+    public static final long DEFAULT_CHAR_SPACE_TOLERANCE = 3;
+    public static final long DEFAULT_WORD_SPACE_TOLERANCE = 7;
+    public static final long DEFAULT_FULL_STOP_TOLERANCE = 10;
+
+    private long dash = DEFAULT_DASH_TOLERANCE;
+    private long charSpace = DEFAULT_CHAR_SPACE_TOLERANCE;
+    private long wordSpace = DEFAULT_WORD_SPACE_TOLERANCE;
+    private long fullStop = DEFAULT_FULL_STOP_TOLERANCE;
 
     public long getDash() {
         return dash;

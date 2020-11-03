@@ -1,6 +1,8 @@
 package com.meli.morse.service;
 
 import com.meli.morse.config.MorseConfiguration;
+import com.meli.morse.utils.MorseBitReader;
+import com.meli.morse.utils.Translator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,39 +11,54 @@ import org.springframework.stereotype.Service;
 public class MorseServiceImpl implements MorseService {
 
     private final Translator translator;
+    private final MorseBitReader binaryDecoder;
 
-    public MorseServiceImpl(MorseConfiguration config) {
+    public MorseServiceImpl(MorseConfiguration config, MorseBitReader bitReader) {
+        this.binaryDecoder = bitReader;
         this.translator = new Translator().setDictionary(config.getDictionary());
     }
 
     @Override
     public ResponseEntity<MorseResponse> morse2human(MorseRequest body) throws Exception {
         try{
-            return ResponseEntity.ok()
-                    .body(new MorseResponse()
-                            .setResponse(translator.translateMorse2Human(body.getText()))
-                            .setCode(HttpStatus.OK.value()));
+            String translation = translator.translateMorse2Human(body.getText());
+            return translationOk(translation);
         }catch (MorseException e){
-            return ResponseEntity.badRequest()
-                    .body(new MorseResponse().setError(e.getMessage()).setCode(HttpStatus.BAD_REQUEST.value()));
+            return handleMorseException(e);
         }
     }
 
     @Override
     public ResponseEntity<MorseResponse> human2morse(MorseRequest body) throws Exception {
         try{
-            return ResponseEntity.ok()
-                    .body(new MorseResponse()
-                            .setResponse(translator.translateHuman2Morse(body.getText()))
-                            .setCode(HttpStatus.OK.value()));
+            String translation = translator.translateHuman2Morse(body.getText());
+            return translationOk(translation);
         }catch (MorseException e){
-            return ResponseEntity.badRequest()
-                    .body(new MorseResponse().setError(e.getMessage()).setCode(HttpStatus.BAD_REQUEST.value()));
+            return handleMorseException(e);
         }
     }
 
     @Override
     public ResponseEntity<MorseResponse> binary2morse(MorseRequest body) throws Exception {
-        return null;
+        try{
+            String translation = binaryDecoder.decodeBits2Morse(body.getText());
+            return translationOk(translation);
+        }catch (MorseException e){
+            return handleMorseException(e);
+        }
+    }
+
+
+
+    private ResponseEntity<MorseResponse> handleMorseException(MorseException e){
+        return ResponseEntity.badRequest()
+                .body(new MorseResponse().setError(e.getMessage()).setCode(HttpStatus.BAD_REQUEST.value()));
+    }
+
+    private ResponseEntity<MorseResponse> translationOk(String translation){
+        return ResponseEntity.ok()
+                .body(new MorseResponse()
+                        .setResponse(translation)
+                        .setCode(HttpStatus.OK.value()));
     }
 }

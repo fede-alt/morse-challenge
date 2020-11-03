@@ -6,16 +6,16 @@ server:
 
 #IGNORAR INTERFERENCIA IMPLICA NO REPORTARLA CON UNA EXCEPTION E INTENTAR TRADUCIR DE TODAS FORMAS "coerce"
 decoder:
-  ignoreInterference: false
+  ignoreInterference: true
 
 
 #TOLERANCIA : DADO UNA SENAL MINIMA, LA TOLERANCIA INDICA EL MULTIPLICADOR QUE DEFINE EL CONTEXTO
 # Ej: (punto = 1 & tolerancia = 3)   =>   dash = 3 o mas
 tolerance:
-  dash: 3
-  charSpace: 3
-  wordSpace: 7
-  fullStop: 10
+  dash: 6
+  charSpace: 6
+  wordSpace: 14
+  fullStop: 20
 
 
 #CONTRATO DE DICCIONARIO: Las claves deben ser un caracter, y unicas.

@@ -1,28 +1,26 @@
 package com.meli.morse.utils;
 
+import com.meli.morse.model.MorseTolerance;
 import com.meli.morse.model.Signal;
 import com.meli.morse.model.Transmission;
 import com.meli.morse.service.MorseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-@ConfigurationProperties(prefix = "bit-reader")
+@ConfigurationProperties(prefix = "decoder")
 public class MorseBitReader {
 
     private static final char ONE = '1';
     private static final char ZERO = '0';
-    private static MorseBitReader instance = null;
-    private boolean ignoreInterference;
 
-    public static MorseBitReader getInstance(){
-        if (instance == null){
-            instance = new MorseBitReader();
-        }
-        return instance;
-    }
+    @Autowired
+    private MorseTolerance tolerance;
+
+    private boolean ignoreInterference;
 
     public MorseBitReader setIgnoreInterference(boolean ignoreInterference) {
         this.ignoreInterference = ignoreInterference;
@@ -39,10 +37,11 @@ public class MorseBitReader {
      *
      */
     public String decodeBits2Morse(ArrayList<Boolean> bits){
-        Transmission transmission = new Transmission();
+        Transmission transmission = new Transmission(tolerance);
         if (bits.size()>0) {
             Signal signal = SignalFactory.getInstance().createFrom(bits.get(0));
-            for (boolean nextBit : bits){
+            for (int i = 1 ; i < bits.size() ; i++){
+                boolean nextBit = bits.get(i);
                 if ( signal.shouldContinue(nextBit) ) {
                     signal.addDuration();
                 }else{

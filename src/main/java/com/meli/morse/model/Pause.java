@@ -16,7 +16,7 @@ public class Pause extends Signal {
     public static final String PAUSE = "";
     public static final String CHAR_SPACE = " ";
     public static final String WORD_SPACE = "   ";
-    public static final String FULL_STOP = "\n";
+    public static final String FULL_STOP = ".";
 
     public Pause(int duration) {
         super(duration);

@@ -1,5 +1,7 @@
 package com.meli.morse.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.stream.LongStream;
 
@@ -8,9 +10,9 @@ public class Transmission {
     private TransmissionContext context;
     private ArrayList<Signal> signalList;
 
-    public Transmission() {
+    public Transmission(MorseTolerance tolerance) {
         this.signalList = new ArrayList<>();
-        this.context = new TransmissionContext();
+        this.context = new TransmissionContext(tolerance);
     }
 
     public void refreshContext(){
@@ -60,5 +62,10 @@ public class Transmission {
     public Transmission setSignals(ArrayList<Signal> signals) {
         this.signalList = signals;
         return this;
+    }
+
+    public void clear() {
+        this.signalList.clear();
+        this.refreshContext();
     }
 }

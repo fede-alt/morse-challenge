@@ -34,7 +34,7 @@ public interface MorseService {
 
 
     @RequestMapping(value = "/binary2morse", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ApiOperation("Translates binary string to morse")
+    @ApiOperation("Translates binary (0s & 1s) string to morse")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Succesfull translation"),
             @ApiResponse(code = 400, message = "Failed to translate"),
