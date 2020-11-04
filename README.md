@@ -115,10 +115,10 @@ El modelo es apto para uso recursivo, es decir que puede utilizarse en una aplic
 Para definir el contexto es necesario que la transmisión contenga ambas posibilidades de interpretación de la señal. (Es decir que no debe suceder tener una secuencia de 0s y 1s de longitud fija, pues estos serán interpretados como la mínima unidad morse respectiva, punto o guión)
 El motivo es justamente asignar esa minima duracion de señal al punto morse, o pausa.
 Esto quiere decir que no se podrá traducir una señal 111000111 como "- -", pues el contexto que propuse llevará a una interpretacion ".."
-En resumen, debe estar presente aquel caracter de menor duracion al que se quiere representar, por ejemplo si desea representar un guión, la transmision deberá contener al menos un punto, de igual manera para las Pausas.
+En resumen, debe estar presente aquel caracter de menor duracion al que se quiera representar, por ejemplo si desea representar un guión, la transmision deberá contener al menos un punto, y de manera análoga para las Pausas.
 
 #### Configurables: 🔧
-  **tolerancia:** la tolerancia podrá ser configurable. El número de cada tolerancia debe respetar a la tolerancia de nivel inferior. Por ejemplo, la tolerancia de un word-space debe ser mayor a la de un char-space.
+  **tolerance:** la tolerancia podrá ser configurable. El número de cada tolerancia debe respetar a la tolerancia de nivel inferior. Por ejemplo, la tolerancia de un word-space debe ser mayor a la de un char-space.
   
   **coerce:**  forzado de la traduccion, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres invalidos)
   
@@ -145,7 +145,7 @@ La idea es granular el problema una vez parseado el texto:
 
   _Parametros configurables de la API en su application.yml_
   
-  **diccionario:** el diccionario está declarado en el YML posibilitando insertar más símbolos. _Se levanta el diccionario_
+  **translator.diccionary:** el diccionario está declarado en el YML posibilitando insertar más símbolos.
   
   **coerce:**  forzado de la traduccion, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres invalidos)
   
