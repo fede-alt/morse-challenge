@@ -118,9 +118,9 @@ Esto quiere decir que no se podrá traducir una señal 111000111 como "- -", pue
 En resumen, debe estar presente aquel caracter de menor duracion al que se quiera representar, por ejemplo si desea representar un guión, la transmision deberá contener al menos un punto, y de manera análoga para las Pausas.
 
 #### Configurables: 🔧
-  **tolerance:** la tolerancia podrá ser configurable. El número de cada tolerancia debe respetar a la tolerancia de nivel inferior. Por ejemplo, la tolerancia de un word-space debe ser mayor a la de un char-space.
+  **tolerance:** la tolerancia podrá ser configurable. El número de cada tolerancia debe respetar a la tolerancia de nivel inferior. Por ejemplo, la tolerancia de un word-space debe ser mayor a la de un char-space. Se declara en el [application.yml](https://github.com/fede-alt/morse-challenge/blob/master/src/main/resources/application.yml)
   
-  **coerce:**  forzado de la traduccion, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres invalidos)
+  Campo **coerce:**  forzado de la traducción, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres inválidos). Forma parte de la request (boolean).
   
  
 #### Manejo de errores:
@@ -133,21 +133,29 @@ En resumen, debe estar presente aquel caracter de menor duracion al que se quier
 Como este método será ser utilizado por el servicio y además debe tener una inverso, me propuse utilizar dos diccionarios que representan una Look Up Table (LUT) respectivamente para cada proceso, siempre utilizando de base un diccionario de entrada, que será customizable siguiendo el contrato de (char->morseTerm)
 La idea es granular el problema una vez parseado el texto:
 
-  Para cada caracter de texto, se busca una traduccion a morse.
+  Para cada caracter de texto, se busca una traducción a morse.
   
-  Para cada termino morse se busca su traduccion a texto.
+  Para cada término morse se busca su traducción a texto.
   
   #### Manejo de errores:
   En el caso de que no poder traducir un termino morse o un caracter "humano" se lanzará una MorseException con la información suficiente para ubicar el problema, que en este caso será el index inicial del termino y su contenido.  
   
+  #### Condiciones 📑
+
+ Manejo de espacios: Se entiende que varios espacios entre palabras juntos no tienen sentido y por ende se llevan a un solo espacio para estandarizar.
+ 
+ Cualquier traducción se devuelve trimmeada (es decir que es imposible que esté wrappeada entre espacios).
+ 
+ Toda traducción a texto será devuelta en mayúscula.
+  
   
 #### Configurables: 🔧
 
-  _Parametros configurables de la API en su application.yml_
+  _Parametros configurables de la API en su [application.yml](https://github.com/fede-alt/morse-challenge/blob/master/src/main/resources/application.yml)_
   
   **translator.diccionary:** el diccionario está declarado en el YML posibilitando insertar más símbolos.
   
-  **coerce:**  forzado de la traduccion, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres invalidos)
+  Campo **coerce:**  forzado de la traducción, equivale a ignorar la imposibilidad de traducción de algun término. Forma parte de la request (boolean).
   
   
 -------------------------------------------------------------------------------
@@ -169,7 +177,7 @@ La idea es granular el problema una vez parseado el texto:
        mvn clean install compile
   
 - **Run:
-   Correr el jar generado referenciando al archivo de configuración application.yml.
+   Correr el jar generado referenciando al archivo de configuración [application.yml](https://github.com/fede-alt/morse-challenge/blob/master/src/main/resources/application.yml).
    Ejemplo:
    
       java -jar <JAR_FILE> <YML_CONFIG_FILE>
