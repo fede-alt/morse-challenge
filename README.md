@@ -7,7 +7,7 @@ Se pide implementar en JAVA :
 
 **1.** Una función [decodeBits2Morse](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/MorseBitReader.java#L30) que dada una secuencia de bits, retorne un string con el resultado en MORSE.
 
-**2.** Una función [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36) que tome el string en MORSE y retorne un string legible por un humano. Se puede utilizar la proporcionada como referencia.
+**2.** Una función [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36) que tome el string en MORSE y retorne un string legible por un humano.
 
 ✴️ **BONUS:**
 
@@ -26,7 +26,7 @@ URL para consulta
 
 -------------------------------------------------------------------------------
 
- ### BONUS - API
+ ### BONUS - [API](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/service/MorseService.java#L15)
  
    - HOST: 34.95.148.121
    
