@@ -84,6 +84,7 @@ public class TextTranslator implements Translator {
     public void setDictionary(HashMap<String, String> dictionary) {
         this.dictionary = dictionary;
         this.dictionary.put(SPACE, SPACE); //identidad de espacios teniendo en cuenta el append (*)
+        this.dictionary.put("",""); //equivalencia trivial de string vacio
     }
 
 
