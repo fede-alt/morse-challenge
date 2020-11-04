@@ -5,9 +5,9 @@
 
 Se pide implementar en JAVA :
 
-**1.** Una función [decodeBits2Morse](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/MorseBitReader.java#L30) que dada una secuencia de bits, retorne un string con el resultado en MORSE.
+**1.** Una función decodeBits2Morse que dada una secuencia de bits, retorne un string con el resultado en MORSE.
 
-**2.** Una función [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36) que tome el string en MORSE y retorne un string legible por un humano.
+**2.** Una función translate2Human que tome el string en MORSE y retorne un string legible por un humano.
 
 ✴️ **BONUS:**
 
@@ -22,7 +22,9 @@ URL para consulta
 
 **1)** [decodeBits2Morse](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/MorseBitReader.java#L30)
 
-**2)** [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36)
+**2)** [MorseTranslator::translate](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/MorseTranslator.java#L45)
+
+**2)(_inversa_)** [TextTranslator::translate](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/TextTranslator.java#L34)
 
 -------------------------------------------------------------------------------
 
