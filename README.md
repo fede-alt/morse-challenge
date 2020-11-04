@@ -5,9 +5,9 @@
 
 Se pide implementar en JAVA :
 
-**1.** Una función decodeBits2Morse que dada una secuencia de bits, retorne un string con el resultado en MORSE.
+**1.** Una función [decodeBits2Morse](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/MorseBitReader.java#L30) que dada una secuencia de bits, retorne un string con el resultado en MORSE.
 
-**2.** Una función translate2Human que tome el string en MORSE y retorne un string legible por un humano. Se puede utilizar la proporcionada como referencia.
+**2.** Una función [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36) que tome el string en MORSE y retorne un string legible por un humano. Se puede utilizar la proporcionada como referencia.
 
 ✴️ **BONUS:**
 
@@ -17,9 +17,61 @@ visceversa.
 **B.** Hostear la API en un cloud público (como app engine o cloud foundry) y enviar la
 URL para consulta
 
+-------------------------------------------------------------------------------
+## Resolución
+
+**1)** [decodeBits2Morse](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/MorseBitReader.java#L30)
+
+**2)** [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36)
+
+ ### API
+ 
+   - HOST: 34.95.148.121
+   
+   - PUERTO: 9090
+   
+   - ENDPOINTS: _(ejemplos con curl)_
+   
+   - **POST /translate/morse2text**
+
+      ```
+          curl --location --request POST 'http://34.95.148.121:9090/translate/morse2text' \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+                "text" : ".- . -.-"
+            }'
+      ```
+
+   - **POST /translate/text2morse**
+   
+         ```
+          curl --location --request POST 'http://34.95.148.121:9090/translate/text2morse' \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+                "text" : "hola"
+            }'
+         ```
+
+
+   - **POST /translate/binary2morse**
+   
+          ```
+          curl --location --request POST 'http://34.95.148.121:9090/translate/binary2morse' \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+                "text" : "101110001000111010111"
+            }'
+         ```
+      
+      
+   
+  ### SWAGGER:  
+  
+  - **[(DOCUMENTACIÓN / PLAYGROUND)](http://34.95.148.121:9090/translate/swagger-ui/)**
+
 
 -------------------------------------------------------------------------------
-
+# MODELADO
 
 ## 1. BitDecoder
 
@@ -56,9 +108,9 @@ Tenemos que un punto tiene una unidad de duración, mientras que el guión tiene
 
 El modelo es apto para uso recursivo, es decir que puede utilizarse en una aplicacion que contenga un listener del input de un usuario, por ejemplo un KeyListener, siempre y cuando ese input sea llevado a una lista de Boolean.
 
-![Diagrama](https://i.imgur.com/oW28DIa.jpeg)
+![Diagrama](https://i.imgur.com/5zhR8kb.jpg)
 
-  _Simple diagrama de clases_
+  _Simplificación en diagrama de clases_
 
 
 #### Condiciones 📑
@@ -71,7 +123,7 @@ En resumen, debe estar presente aquel caracter de menor duracion al que se quier
 #### Configurables: 🔧
   **tolerancia:** la tolerancia podrá ser configurable. El número de cada tolerancia debe respetar a la tolerancia de nivel inferior. Por ejemplo, la tolerancia de un word-space debe ser mayor a la de un char-space.
   
-  **interferencia:** llamo interferencia o "ruido" a algo que no se le encuentra traducción, posibilitando ignorarlo y traducir el resto (coerce) o reportarlo (Exception), se configura con un booleano equivalente a ignorarla.
+  **coerce:**  forzado de la traduccion, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres invalidos)
   
  
 #### Manejo de errores:
@@ -96,11 +148,9 @@ La idea es granular el problema una vez parseado el texto:
 
   _Parametros configurables de la API en su application.yml_
   
-  **diccionario:** el diccionario está declarado en el YML posibilitando insertar más símbolos.
+  **diccionario:** el diccionario está declarado en el YML posibilitando insertar más símbolos. _Se levanta el diccionario_
   
- Se levanta el diccionario
-  
-  
+  **coerce:**  forzado de la traduccion, equivale a ignorar "basura" o "interferencia" (fallas de parseo por caracteres invalidos)
   
   
 -------------------------------------------------------------------------------
