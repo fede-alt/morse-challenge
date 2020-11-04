@@ -1,7 +1,8 @@
 package com.meli.morse.service;
 
 import com.meli.morse.utils.MorseBitReader;
-import com.meli.morse.utils.Translator;
+import com.meli.morse.utils.MorseTranslator;
+import com.meli.morse.utils.TextTranslator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,19 +10,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class MorseServiceImpl implements MorseService {
 
-    private final Translator translator;
+    private final MorseTranslator morseTranslator;
+    private final TextTranslator textTranslator;
     private final MorseBitReader binaryDecoder;
 
-    public MorseServiceImpl(Translator translator, MorseBitReader bitReader) {
+    public MorseServiceImpl(MorseTranslator morseTranslator, TextTranslator textTranslator, MorseBitReader bitReader) {
         this.binaryDecoder = bitReader;
-        this.translator = translator;
+        this.textTranslator = textTranslator;
+        this.morseTranslator = morseTranslator;
     }
 
     @Override
     public ResponseEntity<MorseResponse> morse2human(MorseRequest body) throws Exception {
         try{
             boolean coercion = body.getCoerce();
-            String translation = translator.translateMorse2Human(body.getText(), coercion);
+            String translation = morseTranslator.translate(body.getText(), coercion);
             return translationOk(translation);
         }catch (MorseException e){
             return handleMorseException(e);
@@ -31,7 +34,7 @@ public class MorseServiceImpl implements MorseService {
     @Override
     public ResponseEntity<MorseResponse> human2morse(MorseRequest body) throws Exception {
         try{
-            String translation = translator.translateHuman2Morse(body.getText(), body.getCoerce());
+            String translation = textTranslator.translate(body.getText(), body.getCoerce());
             return translationOk(translation);
         }catch (MorseException e){
             return handleMorseException(e);

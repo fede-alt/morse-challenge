@@ -13,7 +13,6 @@ tolerance:
   fullStop: 10
 
 
-#CONTRATO DE DICCIONARIO: Las claves deben ser un caracter, y unicas.
 translator:
   dictionary:
     A: .-
@@ -52,4 +51,3 @@ translator:
     7: --...
     8: ---..
     9: ----.
-    .: .-.-.-

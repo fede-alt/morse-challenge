@@ -1,13 +1,13 @@
 package com.meli.morse.service;
 
-import com.meli.morse.utils.Translator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -15,8 +15,6 @@ public class MorseServiceImplTest {
 
     @Autowired
     private MorseServiceImpl service;
-    @Autowired
-    private Translator translator;
 
     private MorseResponse invokeHuman2MorseEndpoint(String morse) throws Exception {
         return this.service.human2morse(new MorseRequest().setText(morse)).getBody();
@@ -31,40 +29,12 @@ public class MorseServiceImplTest {
     }
 
     @Test
-    public void morse2humanDictionary() {
-        //Testeo el diccionario completo (morse->texto)
-        try {
-            for (String morse : translator.getMorseLUT().keySet()){
-                String translation = invokeMorse2HumanEndpoint(morse).getResponse();
-                if (!translation.isEmpty()) // Exceptuo manejo de espacios
-                    assertEquals(translator.getTextLUT().get(translation),morse);
-            }
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void human2morse() {
-        //Testeo el diccionario completo (text->morse)
-        try {
-            for (String textChar : translator.getTextLUT().keySet()){
-                String translation = invokeHuman2MorseEndpoint(textChar).getResponse();
-                if (!translation.isEmpty()) // Exceptuo manejo de espacios
-                    assertEquals(translator.getMorseLUT().get(translation), textChar);
-            }
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
     public void outOfTextDictionary() throws Exception {
         char badChar = '('; //char ausente en diccionario texto
         String target = "Hola "+badChar+"en morse)"; //string con ese char, (en primer lugar)
         MorseResponse response = invokeHuman2MorseEndpoint(target);
         assertEquals(400, response.getCode());
-        assertEquals("Bad character '"+badChar+"' at position 5", response.getError());
+        assertEquals("Bad character '"+badChar+"' at index 5", response.getError());
     }
 
     @Test
@@ -74,14 +44,14 @@ public class MorseServiceImplTest {
         String toTranslate = part1+target;
         MorseResponse response = invokeMorse2HumanEndpoint(toTranslate);
         assertEquals(400, response.getCode());
-        assertEquals("Invalid morse term '"+target+"' at position "+part1.length(), response.getError());
+        assertEquals("Invalid morse term '"+target+"' at index "+part1.length()+".", response.getError());
     }
 
     @Test
     public void binary2morse() throws Exception {
-            String binary = "010111110111111"; //..- por tolerancia del application.yml de test
-            String decoded = invokerBinary2MorseEndpoint(binary).getResponse();
-            assertEquals("..-",decoded);
+        String binary = "010111110111111"; //..- por tolerancia 6 del application.yml de test
+        String decoded = invokerBinary2MorseEndpoint(binary).getResponse();
+        assertEquals("..-",decoded);
     }
 
     @Test
