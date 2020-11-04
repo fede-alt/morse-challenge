@@ -24,44 +24,41 @@ URL para consulta
 
 **2)** [translate2Human](https://github.com/fede-alt/morse-challenge/blob/master/src/main/java/com/meli/morse/utils/Translator.java#L36)
 
- ### API
+-------------------------------------------------------------------------------
+
+ ### BONUS - API
  
    - HOST: 34.95.148.121
    
    - PUERTO: 9090
    
-   - ENDPOINTS: _(ejemplos con curl)_
+   - ENDPOINTS:   _(ejemplos con curl)_
    
-   - **POST /translate/morse2text**
+     - **POST /translate/morse2text**
 
-      ```
-          curl --location --request POST 'http://34.95.148.121:9090/translate/morse2text' \
-            --header 'Content-Type: application/json' \
-            --data-raw '{
-                "text" : ".- . -.-"
-            }'
-      ```
-
-   - **POST /translate/text2morse**
-   
-         ```
-          curl --location --request POST 'http://34.95.148.121:9090/translate/text2morse' \
-            --header 'Content-Type: application/json' \
-            --data-raw '{
-                "text" : "hola"
-            }'
-         ```
+            curl --location --request POST 'http://34.95.148.121:9090/translate/morse2text' \
+              --header 'Content-Type: application/json' \
+              --data-raw '{
+                  "text" : ".- . -.-"
+              }'
 
 
-   - **POST /translate/binary2morse**
-   
-          ```
-          curl --location --request POST 'http://34.95.148.121:9090/translate/binary2morse' \
-            --header 'Content-Type: application/json' \
-            --data-raw '{
-                "text" : "101110001000111010111"
-            }'
-         ```
+     - **POST /translate/text2morse**
+
+            curl --location --request POST 'http://34.95.148.121:9090/translate/text2morse' \
+              --header 'Content-Type: application/json' \
+              --data-raw '{
+                  "text" : "hola"
+              }'
+
+
+     - **POST /translate/binary2morse**
+
+            curl --location --request POST 'http://34.95.148.121:9090/translate/binary2morse' \
+              --header 'Content-Type: application/json' \
+              --data-raw '{
+                  "text" : "101110001000111010111"
+              }'
       
       
    
@@ -160,10 +157,19 @@ La idea es granular el problema una vez parseado el texto:
 
 * [JAVA 1.8](https://www.java.com/) - Lenguaje de programación
 * [SpringFramework](https://spring.io/) - Framework
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [Swagger](https://swagger.io/) - Documentación de la API
+* [Maven 3](https://maven.apache.org/) - Manejador de dependencias
+* [Swagger 3](https://swagger.io/) - Documentación de la API
 
 
 ## HOW TOs 
 
-asd
+- **Build:
+   En el directorio raiz del pom.xml correr:
+   
+       mvn clean install compile
+  
+- **Run:
+   Correr el jar generado referenciando al archivo de configuración application.yml.
+   Ejemplo:
+   
+      java -jar <JAR_FILE> <YML_CONFIG_FILE>
